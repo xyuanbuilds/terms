@@ -1,0 +1,68 @@
+{
+  "eslint.alwaysShowStatus": true,
+  "eslint.validate": ["typescript"],
+  "eslint.debug": true,
+  "eslint.packageManager": "yarn",
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showAbbreviationSuggestions": false,
+  "emmet.showExpandedAbbreviation": "always",
+  "editor.tabSize": 2,
+  "editor.snippetSuggestions": "inline",
+  "files.eol": "\n",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "deprecated",
+      "color": "#FFE000",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "fixme",
+      "color": "#e66f36",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true
+  },
+  "eslint.lintTask.enable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "cSpell.words": ["esno"]
+}

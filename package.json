@@ -1,0 +1,16 @@
+{
+  "name": "terms",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:xyuanbuilds/terms.git",
+  "author": "xyuanbuilds <1076849402@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "esno": "^0.14.0",
+    "zx": "^4.2.0"
+  }
+}
