@@ -6,6 +6,15 @@ export const isStr: Predicator<string> = (val): val is string =>
 export const isNum: Predicator<number> = (val): val is number =>
   typeof val === "number";
 
+export const isNumLike: Predicator<NumLike> = (val): val is NumLike => {
+  if (isNum(val)) return true;
+  if (!isStr(val)) return false;
+  return !Number.isNaN(Number(val));
+};
+
+export const isInt: Predicator<number> = (val): val is number =>
+  Number.isInteger(val);
+
 export const isBool: Predicator<boolean> = (val): val is boolean =>
   typeof val === "boolean";
 

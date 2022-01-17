@@ -2,19 +2,21 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "./dist",
     "rootDir": ".",
-    "module": "ESNEXT",
+    "module": "CommonJS",
     "target": "ES5",
     "lib": ["ESNEXT"],
     "strict": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    "esModuleInterop": false,
     "allowSyntheticDefaultImports": false,
-    "moduleResolution": "Node",
+    /* "moduleResolution": "Node", // 不需要，只有 node12 需要 */
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "suppressImplicitAnyIndexErrors": true,
@@ -23,7 +25,7 @@
     "removeComments": false,
     "preserveConstEnums": true,
     "incremental": true,
-    "tsBuildInfoFile": "./lib/.ts_build_info"
+    "tsBuildInfoFile": "./dist/.ts_build_info"
   },
-  "include": ["src/*.json", "src/*.ts", "src/index.ts"]
+  "include": ["src/*.json", "src/*.ts"]
 }
