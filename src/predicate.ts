@@ -15,6 +15,11 @@ export const isNumLike: Predicator<NumLike> = (val): val is NumLike => {
 export const isInt: Predicator<number> = (val): val is number =>
   Number.isInteger(val);
 
+export const isEven: Predicator<number> = (val): val is number =>
+  isInt(val) && (val & 1) === 0;
+export const isOdd: Predicator<number> = (val): val is number =>
+  isInt(val) && (val & 1) === 1;
+
 export const isBool: Predicator<boolean> = (val): val is boolean =>
   typeof val === "boolean";
 

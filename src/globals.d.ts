@@ -9,17 +9,21 @@ declare global {
 
   type Predicator<T> = (who: unknown) => who is T;
 
-  /** Tuple with left and right */
-  type Pair<L, R = L> = [left: L, right: R];
-
-  export type ReadonlyNonEmptyArray<A> = ReadonlyArray<A> & {
+  type ReadonlyNonEmptyArray<A> = ReadonlyArray<A> & {
     readonly 0: A;
+  };
+
+  type NonEmptyArray<A> = Array<A> & {
+    0: A;
   };
 
   type RangeLoop = <L extends NumLike, R extends NumLike>(
     l: L,
     R: R
-  ) => <T, R = unknown>(cb: (item: T) => R, items: Iterable<T>) => void;
+  ) => <T = number, R = unknown>(
+    cb: (item: T) => R,
+    items?: Iterable<T>
+  ) => void;
 
   // var utils: {
   //   inspect: inspect;

@@ -27,5 +27,5 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/.ts_build_info"
   },
-  "include": ["src/*.json", "src/*.ts"]
+  "include": ["src/*.json", "src/**/*.ts"]
 }
