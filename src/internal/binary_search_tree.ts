@@ -138,9 +138,14 @@ class BSTree<T> {
     } else if (factor > 0) {
       start.left = _remove(start.left, v, check);
     } else {
-      check();
-      if (start.left == null) return start.right;
-      if (start.right == null) return start.left;
+      if (start.left == null) {
+        check();
+        return start.right;
+      }
+      if (start.right == null) {
+        check();
+        return start.left;
+      }
 
       let min = start.right;
       while (min.left) {
