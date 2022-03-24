@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "repository": "git@github.com:xyuanbuilds/terms.git",
+  "type": "module",
   "author": "xyuanbuilds <1076849402@qq.com>",
   "license": "MIT",
   "devDependencies": {

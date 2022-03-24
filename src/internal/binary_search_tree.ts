@@ -25,6 +25,12 @@ class Node<T> implements TreeNode<T> {
   get_child(factor: number) {
     return factor > 0 ? this.right : this.left;
   }
+
+  set_child(factor: number, value: T) {
+    factor > 0
+      ? (this.right = Node.make_node(value))
+      : (this.left = Node.make_node(value));
+  }
 }
 
 /**
@@ -38,6 +44,9 @@ export type BSTreeComparator<T> = (
   comparedNodeValue: T
 ) => number;
 
+type NoEmptyBSTree<T> = BSTree<T> & {
+  _root: Node<T>;
+};
 class BSTree<T> {
   protected _comparator: BSTreeComparator<T>;
   protected _root: Node<T> | null;
@@ -50,13 +59,17 @@ class BSTree<T> {
     this.size = 0;
   }
 
-  isEmpty() {
+  isEmpty(this: BSTree<T>) {
     return this._root === null;
   }
 
+  isNoEmpty(this: BSTree<T>): this is NoEmptyBSTree<T> {
+    return this._root !== null;
+  }
+
   insert(v: T) {
-    const { isEmpty, _root, _comparator } = this;
-    if (isEmpty()) {
+    const { _root, _comparator } = this;
+    if (this.isEmpty()) {
       this._root = Node.make_node(v);
       this.size = 1;
       return true;
@@ -68,36 +81,75 @@ class BSTree<T> {
         const res = _comparator(cur.value, v);
         if (res > 0) {
           cur = cur.right;
-          if (cur === null) pre.right = Node.make_node(v);
+          if (cur === null) {
+            pre.right = Node.make_node(v);
+            this.size += 1;
+            return true;
+          }
         } else if (res < 0) {
           cur = cur.left;
-          if (cur === null) pre.right = Node.make_node(v);
+          if (cur === null) {
+            pre.left = Node.make_node(v);
+            this.size += 1;
+            return true;
+          }
         } else {
           return false;
         }
       }
 
-      return true;
+      return false;
     }
   }
 
   has(v: T) {
-    const { _comparator, _root, isEmpty } = this;
-    if (isEmpty()) return false;
-
-    let cur = _root;
-    while (cur !== null) {
-      const res = _comparator(cur.value, v);
-      if (res > 0) {
-        cur = cur.right;
-      } else if (res < 0) {
-        cur = cur.left;
-      } else {
-        return true;
+    if (this.isNoEmpty()) {
+      const { _comparator, _root } = this;
+      let cur: null | Node<T> = _root;
+      while (cur !== null) {
+        const res = _comparator(cur.value, v);
+        if (res !== 0) {
+          cur = cur.get_child(res);
+        } else {
+          return true;
+        }
       }
     }
 
     return false;
+  }
+
+  remove(v: T): boolean {
+    let removed = false;
+    this._remove(this._root, v, () => {
+      removed = true;
+      this.size -= 1;
+    });
+    return removed;
+  }
+
+  _remove(start: Node<T> | null, v: T, check: () => void): Node<T> | null {
+    if (start === null) return start;
+    const { _comparator, _remove } = this;
+
+    const factor = _comparator(v, start.value);
+    if (factor < 0) {
+      start.right = _remove(start.right, v, check);
+    } else if (factor > 0) {
+      start.left = _remove(start.left, v, check);
+    } else {
+      check();
+      if (start.left == null) return start.right;
+      if (start.right == null) return start.left;
+
+      let min = start.right;
+      while (min.left) {
+        min = min.left;
+      }
+      start.value = min.value; // 需要删除的节点与 删除节点右侧最小节点（右侧的最左边）换值
+      start.right = _remove(start.right, min.value, check); // 换完值后删除被换值的节点
+    }
+    return start;
   }
 
   static defaultComparator = (l: any, r: any) => l - r;

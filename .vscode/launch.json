@@ -8,7 +8,7 @@
       "type": "node",
       "protocol": "inspector",
       "env": { "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json" },
-      "args": ["node_modules/.bin/esno", "./${relativeFile}"],
+      "args": ["node_modules/.bin/esmo", "./${relativeFile}"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "stopOnEntry": false,

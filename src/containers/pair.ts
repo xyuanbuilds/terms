@@ -24,6 +24,10 @@ class Pair<F, S = F> implements IPair<F, S>, IComparable<Pair<F, S>> {
     return new Pair(first, second);
   }
 
+  static isValid(v: unknown): boolean {
+    return v instanceof Pair;
+  }
+
   static swap<L, R = L>({ first, second }: Pair<L, R>): Pair<R, L> {
     return Pair.make_pair(second, first);
   }
