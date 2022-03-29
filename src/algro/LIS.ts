@@ -19,7 +19,3 @@ function LIS(t: number[]) {
 
   return dp[t.length - 1];
 }
-
-const res = LIS(test);
-
-console.log(res);
