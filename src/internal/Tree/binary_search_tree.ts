@@ -1,4 +1,4 @@
-import type { IPointer } from "../types/Ipointer";
+import type { IPointer } from "../../types/Ipointer";
 
 // 插入过程也是查找过程
 interface TreeNode<T> extends IPointer<T> {

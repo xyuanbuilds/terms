@@ -9,7 +9,9 @@
 
 /**
  * 子集
- * nums数组中的元素 互不相同 。返回该数组所有可能的子集（不重复）
+ * nums 互不相同，返回该数组所有可能的子集（不重复）
+ *
+ * `nums = [1,2,3]` -> `[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]`
  */
 function subsets(nums: number[]): number[][] {
   const result: number[][] = [];
@@ -30,7 +32,37 @@ function subsets(nums: number[]): number[][] {
 }
 
 /**
- * 全排列（交换元素优化版）
+ * 子集
+ * nums 包含重复元素，返回所有可能的子集
+ *
+ * `nums = [1,2,2]` -> `[[],[1],[1,2],[1,2,2],[2],[2,2]]`
+ */
+function subsetsWithDup(nums: number[]): number[][] {
+  const result: number[][] = [];
+
+  function backtrack(items: number[], start: number, tmp: number[]) {
+    result.push([...tmp]); // 前序位置获得结果并返回
+
+    for (let i = start; i < items.length; i += 1) {
+      const cur = items[i];
+
+      // * i > start 代表判断的是同层 后续
+      // * items[i -1] 判断的是同层的上一个选中，因为同层的第一个默认选中（第一个肯定没有重复）
+      if (i > start && cur === items[i - 1]) continue;
+
+      tmp.push(cur); // 选择
+
+      backtrack(nums, i + 1, tmp);
+      tmp.pop(); // 撤销
+    }
+  }
+
+  backtrack(nums.sort(), 0, []);
+  return result;
+}
+
+/**
+ * 全排列（交换元素优化版 ps：看不太懂版）
  */
 function permute(nums: number[]) {
   const result: number[][] = [];

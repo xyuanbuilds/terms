@@ -13,9 +13,10 @@ declare global {
     readonly 0: A;
   };
 
-  type NonEmptyArray<A> = Array<A> & {
+  interface NonEmptyArray<A> extends Array<A> {
     0: A;
-  };
+    pop(): A;
+  }
 
   type RangeLoop = <L extends NumLike, R extends NumLike>(
     l: L,
