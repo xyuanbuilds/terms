@@ -1,16 +1,17 @@
-type TreeNode = {
+export interface TreeNode {
   value: any;
   children: TreeNode[];
-};
+}
 
-const isTree = (
+export const isTree = (
   node: TreeNode
 ): node is TreeNode & {
   children: NonEmptyArray<TreeNode>;
 } => node.children && node.children.length > 0;
 
-const isStackNonEmpty = <T extends unknown>(a: T[]): a is NonEmptyArray<T> =>
-  a && a.length > 0;
+export const isStackNonEmpty = <T extends unknown>(
+  a: T[]
+): a is NonEmptyArray<T> => a && a.length > 0;
 
 function DFS(tree: TreeNode, target: any) {
   // 模拟栈，管理结点
@@ -45,3 +46,34 @@ function ReDFS(node: TreeNode | undefined, target: any) {
     ReDFS(node.children[i], target);
   }
 }
+
+// interface TreeNode {
+//   val: number;
+//   left: TreeNode | null;
+//   right: TreeNode | null;
+// }
+// interface NonEmptyArray<A> extends Array<A> {
+//   0: A;
+//   pop(): A;
+// }
+
+// const isStackNonEmpty = <T extends unknown>(a: T[]): a is NonEmptyArray<T> =>
+//   a && a.length > 0;
+
+// function preorderTraversal(tree: TreeNode) {
+//   const res = [];
+//   if (!tree) return res;
+
+//   let stack = [tree];
+//   while (isStackNonEmpty(stack)) {
+//     let node = stack.pop();
+
+//     /* 做一些事情，可完成后退出*/
+//     res.push(node.val);
+
+//     if (node.right) stack.push(node.right);
+//     if (node.left) stack.push(node.left);
+//   }
+
+//   return res;
+// }
