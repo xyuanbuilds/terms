@@ -1,7 +1,7 @@
 import { isStackNonEmpty } from "./DFS";
-import type { TreeNode } from "./DFS";
 
-interface BinaryTreeNode extends TreeNode {
+export interface BinaryTreeNode {
+  value: any;
   left: BinaryTreeNode | null;
   right: BinaryTreeNode | null;
   visited?: boolean;

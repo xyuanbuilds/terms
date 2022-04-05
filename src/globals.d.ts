@@ -16,6 +16,7 @@ declare global {
   interface NonEmptyArray<A> extends Array<A> {
     0: A;
     pop(): A;
+    shift(): A;
   }
 
   type RangeLoop = <L extends NumLike, R extends NumLike>(
