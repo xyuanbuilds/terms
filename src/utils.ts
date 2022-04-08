@@ -41,7 +41,7 @@ const makeBy =
   <A>(f: (i: number) => A) =>
   (n: number): ReadonlyNonEmptyArray<A> => {
     const j = Math.max(0, Math.floor(n));
-    const out: NonEmptyArray<A> = [f(0)];
+    const out: Array<A> & { 0: A } = [f(0)];
     for (let i = 1; i < j; i++) {
       out.push(f(i));
     }
