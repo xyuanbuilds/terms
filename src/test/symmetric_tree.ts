@@ -2,35 +2,32 @@
  * 101
  */
 function isSymmetric(root: TreeNode | null): boolean {
-  if (!root) return false;
-  function ReDFS_RDL(
-    node: TreeNode | null,
-    res: any[] = [],
-    reverse?: boolean
-  ) {
-    if (node === null) {
-      res.push(null);
-      return;
-    }
+	if (!root) {
+		return false;
+	}
+	function ReDFS_RDL(node: TreeNode | null, res: any[] = [], reverse?: boolean) {
+		if (node === null) {
+			res.push(null);
+			return;
+		}
 
-    res.push(node.val);
+		res.push(node.val);
 
-    ReDFS_RDL(reverse ? node.left : node.right, res, reverse);
-    ReDFS_RDL(reverse ? node.right : node.left, res, reverse);
+		ReDFS_RDL(reverse ? node.left : node.right, res, reverse);
+		ReDFS_RDL(reverse ? node.right : node.left, res, reverse);
 
-    return res;
-  }
+		return res;
+	}
 
-  const l: TreeNode[] = [];
-  const r: TreeNode[] = [];
+	const l: TreeNode[] = [];
+	const r: TreeNode[] = [];
 
-  ReDFS_RDL(root.left, l);
+	ReDFS_RDL(root.left, l);
 
-  ReDFS_RDL(root.right, r, true);
+	ReDFS_RDL(root.right, r, true);
 
-  return l.every((i, index) => i === r[index]);
+	return l.every((i, index) => i === r[index]);
 }
-
 // const test1 = {
 //   val: 2,
 //   left: {
