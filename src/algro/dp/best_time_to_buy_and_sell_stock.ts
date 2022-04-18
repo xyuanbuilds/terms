@@ -2,7 +2,7 @@
  * 121
  * 只需要上一个结果的动规
  */
-function maxProfit(prices: number[]): number {
+export function maxProfit(prices: number[]): number {
 	let min = 0;
 	let res = 0;
 	for (let price of prices) {
