@@ -13,6 +13,10 @@ function inAreaHoc(xN: number, yN: number) {
 
 /**
  * 1162
+ * 
+ * 陆地岛屿，找最大距离
+ * 
+ * 网格路径 -> 决策树
  */
 function maxDistance(grid: number[][]) {
 	const N = grid.length;
