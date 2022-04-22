@@ -1,6 +1,4 @@
-import { isStackNonEmpty as isNonEmpty } from "./DFS";
-
-const test = [[1, 0, 1], [0, 0, 0], [1, 0, 1]];
+import { isStackNonEmpty as isNonEmpty } from "../DFS";
 
 // * 可移动 选择
 const moves = [[-1, 0], [1, 0], [0, -1], [0, 1]];
@@ -16,6 +14,8 @@ function inAreaHoc(xN: number, yN: number) {
  * 
  * 陆地岛屿，找最大距离
  * 
+ * 通过遍历，先获取所有的 岛屿1 坐标，放入 queue 中
+ * 开始 BFS，此时转而开始遍历 海洋0 坐标，也就是移动（move遍历）后位置为 0 才推入下一次BFS，BFS 多少层，最远距离就是多少
  * 网格路径 -> 决策树
  */
 function maxDistance(grid: number[][]) {
@@ -39,6 +39,7 @@ function maxDistance(grid: number[][]) {
 
 	let distance = -1;
 
+	// * BFS
 	while (isNonEmpty(queue)) {
 		distance += 1;
 		const n = queue.length;
@@ -60,5 +61,6 @@ function maxDistance(grid: number[][]) {
 	return distance;
 }
 
+const test = [[1, 0, 1], [0, 0, 0], [1, 0, 1]];
 maxDistance(test);
 debugger;
