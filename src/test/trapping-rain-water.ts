@@ -1,5 +1,5 @@
 /**
- * 42
+ * * 42 盛雨水 
  * 暴力解、DP、双指针、单调栈
  */
 function trap(height: number[]) {

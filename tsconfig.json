@@ -12,6 +12,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "esModuleInterop": false,
+    "downlevelIteration": true,
     "allowSyntheticDefaultImports": false,
     /* "moduleResolution": "Node", // 不需要，只有 node12 需要 */
     "forceConsistentCasingInFileNames": true,

@@ -67,6 +67,7 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
     "deque",
-    "esno"
+    "esno",
+    "strs"
   ],
 }
