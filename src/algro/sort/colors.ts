@@ -1,7 +1,7 @@
 /**
  * 75  颜色分类
  * 
- * 双指针
+ * 双指针，快排partition
  * 
  * 循环不变量
  * https://leetcode-cn.com/problems/sort-colors/solution/kuai-su-pai-xu-partition-guo-cheng-she-ji-xun-huan/
