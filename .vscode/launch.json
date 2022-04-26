@@ -3,16 +3,21 @@
   "configurations": [
     {
       "name": "ts test",
+      "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "type": "node",
       "protocol": "inspector",
-      "env": { "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json" },
-      "args": ["node_modules/.bin/esmo", "./${relativeFile}"],
+      "env": { 
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
+      },
+      "args": ["node_modules/esno/esmo.mjs", "./${relativeFile}"],
+      // "runtimeArgs": [".../npx","${workspaceFolder}/node_modules/.bin/esmo"],
+      // "runtimeArgs": ["${workspaceFolder}/node_modules/esno/esmo.mjs"],
+      // "args": ["./${relativeFile}"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "stopOnEntry": false,
-      "sourceMaps": true
+      "sourceMaps": true,
     }
   ]
 }
