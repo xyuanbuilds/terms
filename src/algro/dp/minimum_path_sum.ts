@@ -24,3 +24,24 @@ function minPathSum(grid: number[][]): number {
 }
 // const res = minPathSum([[1, 2, 3], [4, 5, 6]]);
 // debugger;
+
+function minPathSum1(grid: number[][]) {
+	const m = grid.length;
+	const n = grid[0].length;
+	const f = Array(m).fill(0).map(() => Array(n).fill(0));
+	const g = Array(m * n);
+	for (let i = m - 1; i >= 0; i--) {
+		for (let j = n - 1; j >= 0; j--) {
+			if (i == (m - 1) && j == (n - 1)) {
+				f[i][j] = grid[i][j];
+			} else {
+				let bottom = (i + 1) < m ? f[i + 1][j] + grid[i][j] : Number.MAX_VALUE;
+				let right = (j + 1) < n ? f[i][j + 1] + grid[i][j] : Number.MAX_VALUE;
+				f[i][j] = Math.min(bottom, right);
+			}
+		}
+	}
+
+	return f[0][0];
+}
+// const res = minPathSum1=([[1, 2, 3], [4, 5, 6]]);
