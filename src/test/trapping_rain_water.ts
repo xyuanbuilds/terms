@@ -1,8 +1,36 @@
 /**
- * * 42 盛雨水 
+ * 42. 盛雨水 
+ * [*]
+ * 
+ * 最优双指针
  * 暴力解、DP、双指针、单调栈
+ * 
+ * 能接的水=min(左右两边最高柱子)-当前柱子高度
  */
 function trap(height: number[]) {
+	const N = height.length;
+	let all = 0;
+	let l = 0;
+	let lMax = height[0];
+	let r = N - 1;
+	let rMax = height[N - 1];
+	while (l < r) {
+		lMax = Math.max(height[l], lMax);
+		rMax = Math.max(height[r], rMax);
+		if (lMax < rMax) {
+			// * 如果当前 右边最大更大 右边肯定能兜住当前格子里的的水，按左最大来减就行
+			// * lMax 要么是当前，要么是左侧某个大的，是随之计算被实时维护的
+			all += lMax - height[l];
+			l += 1;
+		} else {
+			all += rMax - height[r];
+			r -= 1;
+		}
+	}
+	return all;
+}
+
+function trap1(height: number[]) {
 	let all = 0;
 	let lMax = 0;
 	for (let index = 0; index < height.length; index += 1) {

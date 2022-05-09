@@ -1,5 +1,6 @@
 /**
  * 55 跳跃游戏
+ * [*] 典型贪心，也可以理解下动规
  * 
  * 为了到达终点，可多跳也可少跳，典型的贪心类问题
  * 因为要能走到终点，表示中间所有格子都能走到，
@@ -102,11 +103,9 @@ function canJump1(nums: number[]) {
 
 	return end == 0;
 }
-
 // 输入：nums = [2,3,1,1,4]
 // 输出：true
 // 输入：nums = [3,2,1,0,4]
 // 输出：false
-const res = canJump([2, 3, 1, 1, 4]);
+// const res = canJump([2, 3, 1, 1, 4]);
 // const res = canJump([3, 2, 1, 0, 4]);
-debugger;

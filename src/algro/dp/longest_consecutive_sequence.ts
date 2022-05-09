@@ -2,6 +2,11 @@
  * 128. 最长连续序列
  * [*]
  * 
+ * 此题不要求连续，所以大概率是一个可 dp 的问题
+ * 
+ * 此题是一个求方案数的题
+ * 所以需要保证不重复（有相同的数字）
+ * 
  * set 存放（去重），连续序列只需要保证后续连续即可，可以省去位于中间的情况的遍历（前一个数也存在）
  */
 function longestConsecutive(nums: number[]): number {
@@ -23,6 +28,7 @@ function longestConsecutive(nums: number[]): number {
 
 	return res;
 }
+
 // 输入：nums = [100,4,200,1,3,2]
 // 输出：4
 // 解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。

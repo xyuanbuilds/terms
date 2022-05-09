@@ -1,7 +1,7 @@
 import type { IPointer } from "../../types/Ipointer";
 
 interface ListNode<T> extends IPointer<T> { next: ListNode<T> | null }
-/** 反转链表 */
+/** 翻转链表 */
 export function reverse(head: ListNode<unknown> | null):
 	| ListNode<unknown>
 	| null {
