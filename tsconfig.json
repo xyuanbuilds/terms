@@ -6,7 +6,7 @@
     "rootDir": ".",
     "module": "CommonJS",
     "target": "ES5",
-    "lib": ["ESNEXT"],
+    "lib": ["ESNEXT", "DOM"],
     "strict": true,
     "declaration": true,
     "declarationMap": true,

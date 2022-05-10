@@ -28,7 +28,7 @@ export function rob1(nums: number[]) {
 			DFS(start + 1, prev, false);
 		}
 	}
-	debugger;
+
 	DFS(1, 0, false);
 	DFS(1, nums[0], true);
 	return res;
