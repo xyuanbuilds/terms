@@ -1,11 +1,14 @@
 /**
  * 56 合并区间
+ * [*]
  * 
  * 滑动窗口
  */
 function merge(intervals: number[][]): number[][] {
 	intervals.sort((v1, v2) => v1[0] - v2[0]);
-	const res = Array(intervals.length).fill(0).map(() => [...Array(2)]);
+	const res = Array(intervals.length)
+		.fill(0)
+		.map(() => [...Array(2)]);
 	let idx = -1;
 	for (let interval of intervals) {
 		// 如果结果数组是空的，或者当前区间的起始位置 > 结果数组中最后区间的终止位置，
