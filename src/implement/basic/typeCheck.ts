@@ -6,8 +6,10 @@
  * * “Boolean，String，Number，Symbol，BigInt” 叫包装对象，因为基本类型不可改，无属性，所以需要转换为包装对象
  * * 如 “ ''.length ” 是先把基本类型string转换成包装对象String，然后再调用String.length
  * 
- * typeof 可以判断基本数据类型null除外,引用数据类型除了function，其余也不能准确判断
- * instanceof 可以准确地判断复杂引用数据类型，但不能正确判断基础数据类型
+ * typeof 可以判断基本数据类型(null除外),引用数据类型除了function，其余也不能准确判断
+ * instanceof 可以准确地判断复杂引用类型(通过原型)，因为操作右侧不能放置非引用类型，所以判断基本类型不是很方便，
+ * null instanceof Object 也是 false。
+ * 
  * Object.prototype.toString 很好的判断引用数据类型，包括浏览器窗口window和document
  * constructor 是不稳定的，开发者一旦重写prototype原有的constructor引用会丢失，需要重新给constructor赋值
  */

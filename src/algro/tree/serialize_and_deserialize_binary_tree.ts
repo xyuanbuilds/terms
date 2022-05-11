@@ -1,9 +1,16 @@
 import { isStackNonEmpty as isNonEmpty } from "./DFS";
 
-type TreeNode = { val: number, left: null | TreeNode, right: null | TreeNode };
+type TreeNode = { val: number; left: null | TreeNode; right: null | TreeNode };
 
 /*
+ * 449. 序列化和反序列化二叉搜索树
+ * 二叉搜索树转为字符串，再转回 
  * Encodes a tree to a single string.
+ * 
+ * * 先 left，后 right
+ * * 利用队列，做 BFS 操作
+ * * 反序列其实也是 BFS 模式，只是增加了一个 cursor 指针，每次循环 += 2
+ * root 0,left 1,right 2,left_l 3, left_r 4,
  */
 export function serialize(root: TreeNode | null): string {
 	if (!root) {
@@ -41,14 +48,13 @@ export function deserialize(data: string): TreeNode | null {
 	const queue = [root]; // ! 队列辅助子节点设置
 	let cursor = 1; // 初始指向list第二项
 	// * 在序列化之后的 str 中，有效节点是紧密排列的
-	// * 每次循环，queue 中必然有有效节点，且只要指针每次往后走 2 位，必会取到这个有效节点的 left 和 right
+	// * 每次循环，queue 中必然有有效节点，且只要指针每次往后走 2 位，
+	// * 必会取到这个有效节点的 left 和 right
 	// * 也就是每个有效节点子节点的位置是 2n
 	while (cursor < list.length) {
 		const node = queue.shift()!; // 考察出列的节点
 
 		console.log(node);
-		debugger;
-
 		const leftVal = list[cursor]; // cursor 为此时 node 的 left
 		const rightVal = list[cursor + 1]; // cursor + 1 为此事有效 node 的 right
 

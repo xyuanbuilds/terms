@@ -19,3 +19,30 @@ function climbStairs(n: number): number {
 
 	return dp[n];
 }
+
+function climbStairs1(n: number): number {
+	let n_2 = 1;
+	let n_1 = 2;
+	if (n === 1) {
+		return 1;
+	}
+	if (n === 2) {
+		return 2;
+	}
+
+	function recursion(p1: number, p2: number, res: number, step: number): number {
+		if (step === n) {
+			return res;
+		}
+		const cur = p1 + p2;
+		p2 = p1;
+		p1 = cur;
+		step += 1;
+		return recursion(p1, p2, cur, step);
+	}
+	return recursion(n_1, n_2, 3, 2);
+}
+
+const res = climbStairs(5);
+const res1 = climbStairs1(5);
+console.log(res, res1);
