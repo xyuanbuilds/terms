@@ -1,5 +1,9 @@
 /**
- * 142 链表求环，并返回交汇点
+ * 142 环形链表2
+ * [*]
+ * * 快慢指针
+ * 
+ * 链表求环，并返回交汇点
  * 关键词：链表、环
  * 快慢指针：双指针的一种，存在环的链表，快慢指针必定在未来交汇
  *
@@ -9,30 +13,38 @@
  * 普通解决也是 set，while 链表的同时放入set，第一个重复的则为交汇点
  */
 function detectCycle(head: ListNode | null): ListNode | null {
-  if (!head || head.next === null) return null;
-  if (head === head.next.next) return head;
+	// *
+	if (!head || head.next === null) {
+		return null;
+	}
+	// * 两元素直接得环
+	if (head === head.next.next) {
+		return head;
+	}
 
-  let quick: ListNode | null = head.next.next;
-  let slow: ListNode | null = head.next;
+	let quick: ListNode | null = head.next.next;
+	let slow: ListNode | null = head.next;
 
-  let has = false;
-  while (quick && quick.next) {
-    if (quick === slow) {
-      has = true;
-      break;
-    }
-    quick = quick.next.next;
-    slow = slow!.next;
-  }
+	let has = false;
+	while (quick && quick.next) {
+		if (quick === slow) {
+			has = true;
+			break;
+		}
+		quick = quick.next.next;
+		slow = slow!.next;
+	}
 
-  if (!has) return null;
+	if (!has) {
+		return null;
+	}
 
-  quick = head;
-  while (slow != quick) {
-    slow = slow!.next;
-    quick = quick!.next;
-  }
-  return quick;
+	quick = head;
+	while (slow != quick) {
+		slow = slow!.next;
+		quick = quick!.next;
+	}
+	return quick;
 }
 // [-1, -7, 7, -4, 19, 6, -9, -5, -2, -5];
 // const a: ListNode = { val: -1, next: null };

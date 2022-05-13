@@ -1,6 +1,10 @@
 // @ts-nocheck
 /**
  * 前端实现继承的方式
+ * ! 构造函数的 prototype
+ * * 目前主要是用两种
+ * * 1. Object.create 直接继承现有实例
+ * * 2. class extends
  * 
  * * 原型链继承
  * 子类的原型 指向父实例 可以公用父亲上的属性和方法，及父的原型方法
@@ -71,6 +75,27 @@ var sup = new Parent3("dd");
 var boy3 = Child3(sup);
 console.log(boy3.name);
 
+// * 另外，用现有实例来实现继承的，可以用 Object.create，可以不再实现上方的原型式继承
+// * Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__
+// * 相当于只借用 prototype
+const person = {
+	isHuman: false,
+	printIntroduction: function () {
+		console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+	},
+};
+
+const me = Object.create(person);
+// * 如果需要同时继承属性，可以Object.assign
+// * 效果相当于拷贝
+// const me1 = Object.assign(Object.create(person), person)
+
+me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
+me.isHuman = true; // inherited properties can be overwritten
+
+me.printIntroduction();
+
+// more
 // * https://juejin.cn/post/6844903696111763470
 
 // * class
