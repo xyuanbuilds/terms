@@ -1,15 +1,13 @@
-function swap(arr: any[], i: number, j: number) {
-	[arr[i], arr[j]] = [arr[j], arr[i]];
-}
+// ! 合集
+// ! https://github.com/lbwa/algorithms/tree/main/sorts
 
-/**a
+/**
  * 稳定的算法 **冒泡算法** **插入排序** **归并排序**
+ * 不稳定的算法 快速排序 希尔排序 堆排序
  */
 
-// 不稳定的算法 快速排序 希尔排序 堆排序
-
 // 冒泡排序
-// 从后往前 内层循环为最前到剩余的结尾 每次比较后都需要交换
+// * 每一次完整遍历，会让未排序的最末尾完成排序
 function bubbleSort(arr: any[]) {
 	for (var i = arr.length - 1; i > 0; i--) {
 		for (var j = 0; j < i; j++) {
@@ -19,7 +17,6 @@ function bubbleSort(arr: any[]) {
 		}
 	}
 }
-
 // 选择排序
 function selectSort(arr: any[]) {
 	for (var i = 0; i < arr.length; i++) {
@@ -48,7 +45,6 @@ function insertSort(arr: any[]) {
 }
 
 // 希尔排序
-
 function shellSort(arr: any[]) {
 	var gaps = [5, 3, 1];
 	for (var i = 0; i < gaps.length; i++) {
@@ -66,7 +62,6 @@ function shellSort(arr: any[]) {
 }
 
 // 动态希尔排序
-
 function dynamicShellSort(arr: any[]) {
 	var gap = 1;
 	while (gap < (arr.length / 3)) {
@@ -122,7 +117,8 @@ function mergeFn(arr, leftStart, leftStop, rightStart, rightStop) {
 }
 
 // 快速排序
-
+// * 详细快速排序
+// * https://github.com/sl1673495/daily-plan/issues/33
 function quickSort(arr: any[]) {
 	if (arr.length == 0) {
 		return [];

@@ -1,7 +1,7 @@
 /**
  * prototype & __proto__
  * 
- * 
+ * instanceof 就是递归查看原型直到找到，或null
  */
 interface P {
 	readonly prototype: any;
