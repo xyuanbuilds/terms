@@ -62,7 +62,7 @@
   "eslint.lintTask.enable": true,
   "editor.formatOnSave": true,
   // rome-ignore format: the array should not be formatted
-  "editor.defaultFormatter": "rome.rome",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
