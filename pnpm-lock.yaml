@@ -7,6 +7,7 @@ specifiers:
   '@types/react': ^18.0.9
   esno: ^0.14.1
   object-inspect: ^1.12.0
+  prettier: ^2.6.2
   react: ^18.1.0
   react-dom: ^18.1.0
   rome: ^0.4.2-next
@@ -26,6 +27,7 @@ devDependencies:
   '@types/node': 17.0.32
   '@types/object-inspect': 1.8.1
   '@types/react': 18.0.9
+  prettier: 2.6.2
   typescript: 4.6.3
 
 packages:
@@ -677,6 +679,12 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
     dev: false
+
+  /prettier/2.6.2:
+    resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
 
   /ps-tree/1.2.0:
     resolution: {integrity: sha512-0VnamPPYHl4uaU/nSFeZZpR21QAWRz+sRv4iW9+v/GS/J5U5iZB5BNN6J0RMoOvdx2gWM2+ZFMIm58q24e4UYA==}

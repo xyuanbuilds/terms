@@ -13,6 +13,28 @@
    岛屿：寻找起始点+movesDFS（多源DFS）
       岛屿距离：寻找起始点+movesBFS（多源BFS）
         需要不与前选择冲突（记录访问过的内容）：回溯（标记已选择，或已访问）
+  股票买卖：与上一天交易有关，二维，dp[日期][空仓 / 持有]
+      res = Math.max(res, min !== price ? price - min : 0);
+      含冷冻期: dp[日期][空仓 / 持有 / 冻结]
+          `dp[i][0] = Math.max(pre[0], pre[2]);` // 空仓 继续空仓 或 pre冻结只能继续空仓
+		      `dp[i][1] = Math.max(pre[1], pre[0] - price);` // 持有 pre持有 或 pre空仓刚买入
+		      `dp[i][2] = pre[1] + price;` // 冻结 pre持有 + 刚卖出
+  最长公共子序列
+      `i 1, j 1`
+      `text1[i - 1] === text2[j - 1];`
+        // *  当前 i、j 相等，必定是一个公共串中的一位，取i、j都不取当前位的值 + 1
+        ? `dp[i][j] = dp[i - 1][j - 1] + 1;`
+        // * 不等，则分别舍去当前位的结果进行比较，也就是 j 或 i 只有一位可能影响结果
+        : `dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);`
+  最长连续子序列
+      nums.sort((a, b) => a - b)
+      if (nums[i] - nums[i - 1] === 1) {
+        dp[i] = dp[i - 1] + 1;
+      } else if (nums[i] === nums[i - 1]) {
+        dp[i] = dp[i - 1];
+      } else {
+        dp[i] = 1;
+      }
 
 回溯
   排列
@@ -24,10 +46,10 @@
 BFS
   借助队列
   计算从树的最左侧开始，
-  中序：左 -> 父 -> 右
 
 DFS
-  借助堆栈
+  借助堆栈、或直接使用递归
+  中序：左 -> 父 -> 右
 
 头尾双指针：
   for i, left = i, right = lens - 1 - i
@@ -46,11 +68,29 @@ DFS
 优先队列（堆）
 
 二分查找：关键词 有序！查找！
+   l 做 安全逼近，r 做结果获取
+   安全逼近即，l = mid，表示 mid 往左都是符合某个性质的，没必要遍历了
+   const mid = (l + r + 1) >> 1;
+   if (nums[mid] < target) {
+      l = mid;
+   } else {
+      r = mid - 1;
+   }
+
+   return nums[r] === target ? r : -1
 
 前缀和？
 
 二叉树
-  中序遍历：
+  前序遍历：边遍历边计算
+    翻转二叉树： [node.right, node.left] = [DFS(node.left), DFS(node.right)];
+  中序遍历：从 左或右 往 右或左 计算
+    二搜索叉树转化为累加树
+  后序遍历：从下往上计算
+    二叉树直径
+    平衡二叉树
+    打家劫舍三（获取递归结果后进行计算，也算后序）
+
 
 排序
   拓扑排序
