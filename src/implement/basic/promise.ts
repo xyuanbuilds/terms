@@ -41,3 +41,24 @@ Promise.prototype.then = function (onResolved) {
     });
   });
 };
+
+// promise考察：promisify实现
+// 原有的callback调用
+fs.readFile("test.js", function (err, data) {
+  if (!err) {
+    console.log(data);
+  } else {
+    console.log(err);
+  }
+});
+
+// promisify后
+var readFileAsync = promisify(fs.readFile);
+readFileAsync("test.js").then(
+  (data) => {
+    console.log(data);
+  },
+  (err) => {
+    console.log(err);
+  }
+);
