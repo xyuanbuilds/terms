@@ -7,10 +7,11 @@
 const object = { a: [{ b: { c: 3 } }] }; // path: 'a[0].b.c'
 const array = [{ a: { b: [1] } }]; // path: '[0].a.b[0]'
 
+// * 注意使用split /|/ ， `.`、`[`、`]` 加上 `\`
 function getValue(value: object, path: string) {
   const paths = path.split(/\[|\]|\./).filter((i) => i !== "");
 
-  return paths.reduce((pre, cur) => pre[cur], value);
+  return paths.reduce((pre, cur) => pre[cur], value); // * 然后使用 reduce 从左往右获取
 }
 
 console.log(1, getValue(object, "a[0].b.c")); // 3

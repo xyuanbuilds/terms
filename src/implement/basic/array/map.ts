@@ -1,3 +1,4 @@
+// @ts-nocheck
 Object.prototype.map1 = function (handleFn, thisValue) {
   const obj = this;
   let res = {};

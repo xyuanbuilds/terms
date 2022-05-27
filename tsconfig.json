@@ -28,5 +28,5 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/.ts_build_info"
   },
-  "include": ["src/*.json", "src/**/*.ts", "src/implement/application/react/HOC.tsx"]
+  "include": ["src/*.json", "src/**/*.ts"]
 }

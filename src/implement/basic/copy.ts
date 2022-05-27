@@ -46,6 +46,7 @@ function deepClone1(obj: object) {
 const isObject = (target: unknown): target is object =>
   (typeof target === "object" || typeof target === "function") &&
   target !== null;
+
 /**
  * 解决循环引用，考虑内置类型
  * @param target
@@ -58,10 +59,10 @@ function deepClone(target: object | null | undefined, cache = new WeakSet()) {
   }
 
   // ! 利用 WeakSet 缓存引用类型
+  // ! 如果是已经处理过的，说明是循环引用，直接返回
   if (cache.has(target)) {
     return target;
   }
-  // 获取当前值的构造函数：获取它的类型
 
   // * 检测当前对象target是否与正则、日期格式对象匹配
   // * 所有的特殊对象，优先处理
@@ -73,10 +74,17 @@ function deepClone(target: object | null | undefined, cache = new WeakSet()) {
   }
 
   if (isObject(target)) {
+    // 每个引用类型都需要放到缓存中
     cache.add(target); // 为循环引用的对象做标记
 
-    // * 判断是数组还是对象，设置拷贝用容器
-    const cloneTarget = Array.isArray(target) ? [] : {};
+    // * 判断是数组还是对象还是函数，然后拷贝他们的属性，设置拷贝用容器
+    const cloneTarget = Array.isArray(target)
+      ? []
+      : target instanceof Function
+      ? function tmp(...args: any[]) {
+          return target.call(null, ...args);
+        }
+      : {};
     for (let prop in target) {
       if (target.hasOwnProperty(prop)) {
         // * 递归深拷贝
@@ -88,4 +96,47 @@ function deepClone(target: object | null | undefined, cache = new WeakSet()) {
   } else {
     return target;
   }
+}
+
+// 复习
+function isObject1(a: any) {
+  return a && typeof a === "object";
+}
+function deepClone11(target: object | null, cache = new WeakSet()) {
+  if (target === null || !isObject(target)) {
+    return target;
+  }
+
+  if (cache.has(target)) {
+    return target;
+  }
+
+  if (/Date|RexExp/.test(target.constructor.name)) {
+    return new target.constructor(target);
+  }
+
+  const container = Array.isArray(target)
+    ? []
+    : target instanceof Function
+    ? (...args) => target.call(null, ...args)
+    : {};
+
+  // ! for in 会遍历原型上的所有属性，这样是不可以的
+  for (let key in target) {
+    // if (isObject(target[key])) {
+    // container[key] = deepClone(target[key], cache);
+    // } else {
+    //   container[key] = target[key]
+    // }
+    if (target.hasOwnProperty(key)) {
+      container[key] = deepClone(target[key], cache);
+    }
+  }
+
+  // * 或者直接用 Object.keys
+  Object.keys(target).forEach((key) => {
+    container[key] = deepClone(target[key], cache);
+  });
+
+  return container;
 }

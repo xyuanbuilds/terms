@@ -55,7 +55,9 @@ const heart = createHeart();
 const i = formInit((a) => {
   console.log(111, a);
 });
+
 heart.setLifeCycles([i]);
+
 setTimeout(() => {
   heart.publish(i.type, 10);
 }, 2000);

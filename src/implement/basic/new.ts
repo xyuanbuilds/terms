@@ -18,4 +18,5 @@ function _new(constructor, ...arg) {
   var res = constructor.apply(obj, arg);
   // * 返回新对象，如果构造函数不返回对象
   return Object.prototype.toString.call(res) === "[object Object]" ? res : obj;
+  // return typeof res === "object" ? res || obj : obj;
 }

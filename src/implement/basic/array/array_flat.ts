@@ -22,3 +22,19 @@ function flatten1(arr: any[]) {
   }
   return res;
 }
+// 复习
+
+function flatten2(arr: any[]) {
+  let res = [];
+
+  for (let item of arr) {
+    if (Array.isArray(item)) {
+      res.push(...flatten(item));
+    } else {
+      res.push(item);
+    }
+  }
+
+  return res;
+}
+console.log(flatten2([1, [2, [3]]]));

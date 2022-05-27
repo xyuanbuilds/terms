@@ -19,7 +19,13 @@ https://github.com/labuladong/fucking-algorithm/blob/master/%E7%AE%97%E6%B3%95%E
 
 手写
 https://juejin.cn/post/6946022649768181774
+简单手写
+https://juejin.cn/post/7025771605422768159#heading-7
 Ts设计模式
 https://refactoringguru.cn/design-patterns/typescript
 正则查询
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
+每日一题
+https://github.com/Advanced-Frontend/Daily-Interview-Question
+整理
+https://wiki.jirengu.com/doku.php?id=%E6%95%99%E7%A8%8B_%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F

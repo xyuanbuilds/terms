@@ -110,7 +110,7 @@ function inheritPrototype(child, parent) {
 inheritPrototype(Dog, Animal);
 
 // ! 组合寄生
-// * 用父类构造，并将原型设置为父类
+// * 用父类构造，并将原型设置为父类的原型
 function Parent4(name) {
   this.name = name;
 }
@@ -121,6 +121,7 @@ function Child4(name) {
   this.age = age;
 }
 
+// * 相当于 Child4 与 Parent4 原型相同
 Child4.prototype = Object.create(Parent4.prototype);
 Child4.prototype.constructor = Child4;
 
@@ -140,7 +141,7 @@ const boy4 = new Child4("child_name");
 
 // * 另外，用现有实例来实现继承的，可以用 Object.create，可以不再实现上方的原型式继承
 // * Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__
-// * 相当于只借用 prototype
+// * 实例 -> 原型
 const person = {
   isHuman: false,
   printIntroduction: function () {
@@ -148,7 +149,9 @@ const person = {
   },
 };
 
+// * person 的所有属性，都在 me 的原型上了，且 me 的原型的原型则是原先 person 的原型
 const me = Object.create(person);
+
 // * 如果只是需要继承属性，可以Object.assign
 // ! 效果相当于浅拷贝，引用类型会被复制引用，需要注意
 // const me1 = Object.assign({}, person)
@@ -163,8 +166,9 @@ me.printIntroduction();
 
 // * class
 // * 最实用继承
-class Parent5 {
+class Parent5 extends Array {
   constructor(age) {
+    super();
     this.name = "parent";
     this.age = age;
   }

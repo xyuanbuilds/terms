@@ -66,6 +66,11 @@ Function.prototype.bind2 = function (caller) {
     boundTargetFunc.prototype || Function.prototype
   );
 
+  // * Object.create 就是为了快速实现 __proto__ 指向
+  // const tmpFn = function () {};
+  // tmpFn.prototype = boundTargetFunc.prototype;
+  // boundedFn.prototype = new fNOP();
+
   return boundedFn;
 };
 
@@ -91,4 +96,13 @@ Function.prototype.bind2 = function (caller, ...args) {
   }
 
   return bounded;
+};
+
+// 复习
+Function.prototype.bindR = function (caller, ...a) {
+  const fn = this;
+
+  return function (...b) {
+    return fn.call(caller, ...a, ...b);
+  };
 };

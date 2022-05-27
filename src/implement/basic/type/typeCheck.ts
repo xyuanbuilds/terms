@@ -1,26 +1,28 @@
 /**a
  * * 实现一个返回当前类型的函数
- * 
+ *
  * * 基本类型、引用类型、包装对象
  * * 基本类型（基本数值、基本数据类型）是一种既非对象也无方法的数据。
  * * “Boolean，String，Number，Symbol，BigInt” 叫包装对象，因为基本类型不可改，无属性，所以需要转换为包装对象
  * * 如 “ ''.length ” 是先把基本类型string转换成包装对象String，然后再调用String.length
- * 
- * typeof 可以判断基本数据类型(null除外),引用数据类型除了function，其余也不能准确判断
+ *
+ * typeof 可以判断 **基本数据类型(null除外)**, **引用数据类型**除了**function**，其余也不能准确判断
  * instanceof 可以准确地判断复杂引用类型(通过原型)，因为操作右侧不能放置非引用类型，所以判断基本类型不是很方便，
  * null instanceof Object 也是 false。
- * 
+ *
  * Object.prototype.toString 很好的判断引用数据类型，包括浏览器窗口window和document
  * constructor 是不稳定的，开发者一旦重写prototype原有的constructor引用会丢失，需要重新给constructor赋值
  */
 export function typeIs(val: any) {
-	let type = typeof val;
-	if (type !== "object") {
-		// 先进行typeof判断，如果是基础数据类型，直接返回
-		return type;
-	}
-	// 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
-	return Object.prototype.toString.call(val).replace(/^\[object (\S+)\]$/, "$1");
+  let type = typeof val;
+  if (type !== "object") {
+    // 先进行typeof判断，如果是基础数据类型，直接返回
+    return type;
+  }
+  // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
+  return Object.prototype.toString
+    .call(val)
+    .replace(/^\[object (\S+)\]$/, "$1");
 }
 
 // * 7 种基本类型，1 种引用类型(包括很多类型)
