@@ -165,7 +165,7 @@ me.printIntroduction();
 // * https://juejin.cn/post/6844903696111763470
 
 // * class
-// * 最实用继承
+// * 最实用继承方式，实现的也是 寄生组合
 class Parent5 extends Array {
   constructor(age) {
     super();
