@@ -9,6 +9,20 @@ function flatten(arr: any[]) {
   }
   return arr;
 }
+
+function flattenS(arr: any[]) {
+  return arr.toString().split(",");
+}
+
+function flattenA(arr: any[]) {
+  let res = arr;
+  while (res.some(Array.isArray)) {
+    res = res.flat();
+  }
+
+  return res;
+}
+
 // 链接：https://juejin.cn/post/6946022649768181774
 function flatten1(arr: any[]) {
   let res: any[] = [];
@@ -25,11 +39,11 @@ function flatten1(arr: any[]) {
 // 复习
 
 function flatten2(arr: any[]) {
-  let res = [];
+  let res: any[] = [];
 
   for (let item of arr) {
     if (Array.isArray(item)) {
-      res.push(...flatten(item));
+      res.push(...flatten2(item));
     } else {
       res.push(item);
     }

@@ -23,3 +23,8 @@ export function toFloatFixed(operator: number, j = 10) {
   return Number.parseFloat(operator.toFixed(j));
 }
 // console.log(toFloatFixed(0.1 + 0.2) === 0.3);
+// * 相关内容
+[1, 2, 3].map(parseInt); // [1, NaN, NaN]
+[1, 2, 3].map((i, index) => parseInt(String(i), index)); // 相当于该内容
+//parseInt(string, radix)  解析一个字符串并返回指定基数的十进制整数，
+//radix 是 2-36 之间的整数，表示被解析字符串的基数。

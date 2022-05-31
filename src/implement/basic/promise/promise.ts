@@ -15,6 +15,9 @@
  *
  * * Promise.any：任意一个 fulfilled 返回 fulfilled，全 rejected 则返回 rejected，其他都是 pending
  *
+ * ! Promise.resolve(something)，Promise.resolve 会将 Promise实例原样返回，
+ * ! 非 Promise实例 则会用 Promise 包裹，返回一个fulfilled 的 promise
+ *
  * * 空数组或者所有 Promise 都是 rejected，则返回状态是 rejected 的新 Promsie，且值为 AggregateError 的错误；
  * * 只要有一个是 fulfilled 状态的，则返回第一个是 fulfilled 的新实例；
  * * 其他情况都会返回一个 pending 的新实例；
@@ -172,12 +175,13 @@ Promise1.prototype.then = function (onResolved) {
   });
 };
 
-myPromiseRace = (promises) =>
-  new Promise((resolve, reject) => {
+function myPromiseRace(promises) {
+  return new Promise((resolve, reject) => {
     promises.forEach((promise) => {
-      promise.then(resolve, reject); // * 任意一个 promise fulfilled 就会.then 触发 resolve，返回结果
+      Promise.resolve(promise).then(resolve, reject); // * 任意一个 promise fulfilled 就会.then 触发 resolve，返回结果
     });
   });
+}
 
 // * obj 是对象或函数，且有then
 function isPromise(obj) {
@@ -186,21 +190,25 @@ function isPromise(obj) {
 
 function myPromiseAll(arr) {
   let res = [];
+  let count = 0; // ! 需要进行计数
   let containPromise = false;
+
   return new Promise((resolve, reject) => {
     for (let i = 0; i < arr.length; i++) {
       if (isPromise(arr[i])) {
         containPromise = true;
         arr[i]
           .then((data) => {
+            count += 1;
             res[i] = data;
-            if (res.length === arr.length) {
+
+            // if (res.length === arr.length) {
+            if (count === arr.length) {
               resolve(res);
             }
           })
-          .catch((error) => {
-            reject(error);
-          });
+          // * 只要有一个错，就 reject
+          .catch(reject);
       } else {
         res[i] = arr[i];
       }
@@ -208,6 +216,55 @@ function myPromiseAll(arr) {
     if (!containPromise) resolve(res);
   });
 }
+
+/**
+ * promise.any 与 all 相反
+ * any 只需一个 resolve 就算resolve，全 reject 才 reject
+ * @param promises
+ * @returns
+ */
+function myPromiseAny(promises) {
+  let res = [];
+  let count = 0;
+
+  return new Promise((resolve, reject) => {
+    promises.forEach((item, i) => {
+      Promise.resolve(item).then(resolve, (err) => {
+        res[i] = { status: "rejected", val: err };
+        count += 1;
+        if (count === promises.length) reject(new Error("没有promise成功"));
+      });
+    });
+  });
+}
+
+/**
+ * any 与 all 的结合，两者都记录
+ * @param promises
+ * @returns
+ */
+function myPromiseAllSettled(promises) {
+  let res = [];
+  let count = 0;
+
+  return new Promise((resolve, reject) => {
+    promises.forEach((item, i) => {
+      Promise.resolve(item).then(
+        (res) => {
+          res[i] = { status: "fulfilled", val: res };
+          count += 1;
+          if (count === promises.length) resolve(arr);
+        },
+        (err) => {
+          res[i] = { status: "rejected", val: err };
+          count += 1;
+          if (count === promises.length) resolve(arr);
+        }
+      );
+    });
+  });
+}
+
 // * 复习
 function promiseAll(arr) {
   let res = [];
@@ -226,9 +283,7 @@ function promiseAll(arr) {
             resolve(res);
           }
         })
-        .catch((error) => {
-          reject(error);
-        });
+        .catch(reject);
     }
   });
 }

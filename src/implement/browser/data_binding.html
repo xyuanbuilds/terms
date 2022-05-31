@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>双向绑定</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" id="txt" />
+      <p id="show-txt"></p>
+
+      <div>
+        <div
+          style="height: 100px; width: 100px; background: yellow; margin: 100px"
+        ></div>
+        <div
+          style="height: 100px; width: 100px; margin: 100px; background: red"
+        ></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // https://segmentfault.com/a/1190000011225943
+    window.obj = {};
+    Object.defineProperty(obj, "txt", {
+      get: function () {
+        return obj;
+      },
+      set: function (newValue) {
+        document.getElementById("txt").value = newValue;
+        document.getElementById("show-txt").innerHTML = newValue;
+      },
+    });
+    document.addEventListener("keyup", function (e) {
+      obj.txt = e.target.value;
+    });
+  </script>
+</html>
