@@ -1,22 +1,19 @@
 /**
  * 链表求环
  * 关键词：链表、环
- * 快慢指针：双指针的一种，存在环的链表，快慢指针必定在未来交汇
+ * 快慢指针：存在环的链表，快慢指针必定在未来交汇
  */
 function hasCycle(head: ListNode | null): boolean {
   if (!head || head.next === null) return false;
 
-  if (!head.next.next) {
-    return head.next.val === head.val;
-  }
-
-  let quick: ListNode | null = head.next.next;
-  let slow: ListNode | null = head.next;
+  let quick: ListNode | null = head;
+  let slow: ListNode | null = head;
 
   while (quick && quick.next) {
-    if (quick === slow) return true;
     quick = quick.next.next;
     slow = slow!.next;
+
+    if (quick === slow) return true;
   }
 
   return false;

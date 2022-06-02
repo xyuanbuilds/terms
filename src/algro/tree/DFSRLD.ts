@@ -22,6 +22,8 @@ function DFS_RLD(tree: BinaryTreeNode | null, res: any[] = []) {
     // * 节点存在左右，先推入，后续遍历为以访问节点时再做操作
     if (!node.visited && (node.right || node.left)) {
       // * 后序 与 中序 的唯一区别就是，中序将 node 放在了中间
+      // * 用 stack 模拟 DFS 只需要注意添加 node.visited
+      // * 以及 后序 node 最先推入，中序 node 中间推入
       const tmp = [node, node.right, node.left].filter(isBinaryTreeNode);
       node.visited = true;
       stack.push(...tmp);

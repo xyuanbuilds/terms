@@ -1,37 +1,40 @@
 /**
  * 61. 旋转链表
- * 
+ *
  * 获得长度后，根据计算获得行进步数，连接首尾，行进后再断开
- * 
- * @param head 
- * @param k 
- * @returns right 
+ *
+ * @param head
+ * @param k
+ * @returns right
  */
 function rotateRight(head: ListNode | null, k: number): ListNode | null {
-	if (head === null) {
-		return head;
-	}
+  if (head === null) {
+    return head;
+  }
 
-	let tail = head;
-	let len = 1;
-	while (tail.next !== null) {
-		len += 1;
-		tail = tail.next;
-	}
+  // * 旋转后，头部变为尾巴
+  let tail = head;
+  let len = 1;
+  while (tail.next !== null) {
+    len += 1;
+    tail = tail.next;
+  }
 
-	tail.next = head;
-	const done = k % len;
-	let steps = Math.abs((done === 0 ? len : done) - len);
-	debugger;
-	while (steps > 0) {
-		tail = tail.next!;
-		steps -= 1;
-	}
+  tail.next = head;
+  const done = k % len;
 
-	head = tail.next;
-	tail.next = null;
+  // * 获得旋转需要的行进步数
+  let steps = Math.abs((done === 0 ? len : done) - len);
 
-	return head;
+  while (steps > 0) {
+    tail = tail.next!;
+    steps -= 1;
+  }
+
+  head = tail.next;
+  tail.next = null;
+
+  return head;
 }
 // [3, 4, 5, 1, 2];
 // const ttt = {

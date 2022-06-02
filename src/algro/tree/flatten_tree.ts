@@ -1,4 +1,10 @@
-function flatten(root: TreeNode | null): void {
+/**
+ * 114. 二叉树展开为链表
+ *
+ * @param root
+ * @returns
+ */
+export function flatten(root: TreeNode | null): void {
   if (!root) return;
 
   let tmp: TreeNode = {

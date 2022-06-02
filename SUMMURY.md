@@ -29,3 +29,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expression
 https://github.com/Advanced-Frontend/Daily-Interview-Question
 整理
 https://wiki.jirengu.com/doku.php?id=%E6%95%99%E7%A8%8B_%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F
+高频基础
+https://juejin.cn/post/6940945178899251230#heading-22
+正则
+https://juejin.cn/post/7070284710131269669

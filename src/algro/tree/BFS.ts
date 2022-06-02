@@ -14,11 +14,14 @@ function levelOrder(root: BinaryTreeNode | null): number[][] {
     for (let o = 0; o < l; o += 1) {
       const cur = queue.shift();
 
+      // * 左/右推入队列中
       if (cur.left) queue.push(cur.left);
       if (cur.right) queue.push(cur.right);
 
+      // * 收集当前层内容
       tmp.push(cur.value);
     }
+    // * 当前层遍历结束
     res.push(tmp);
     tmp = [];
   }

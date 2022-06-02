@@ -1,4 +1,5 @@
 /**
+ * 无重复字符的最长子串
  * 3 无重复子串
  * [*]
  *
@@ -30,3 +31,29 @@ function lengthOfLongestSubstring(s: string): number {
 }
 // lengthOfLongestSubstring("abcabcbb");
 // debugger
+
+// 输入: s = "abcabcbb"
+// 输出: 3
+// 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+
+// 复习
+// * 子串需要连续的，所以使用双指针逻辑进行处理
+// "abcabcbb";
+function lengthOfLongestSubstringA(s: string): number {
+  let res = 0;
+  const has: string[] = [];
+
+  for (let str of s) {
+    const foundIndex = has.findIndex((i) => i === str);
+    has.push(str);
+
+    if (foundIndex >= 0) {
+      has.splice(0, foundIndex + 1); // * 有重复的，拆掉 [0 - foundIndex] 部分的子串
+    } else {
+      if (has.length > res) res = has.length;
+    }
+  }
+
+  return res;
+}
+lengthOfLongestSubstringA("abcabcbb");

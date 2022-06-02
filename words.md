@@ -169,7 +169,7 @@ DFS
 tips:
   Object 会对 key 自动排序
 
-  子串：滑动窗口 / dp
-  子序列：dp
+  子串(字符)、连续递增序列(数组，紧密相连Continuous)：滑动窗口 / dp
+  子序列(可排序后Consecutive)：dp
   子数组：前缀和
   排列：回溯

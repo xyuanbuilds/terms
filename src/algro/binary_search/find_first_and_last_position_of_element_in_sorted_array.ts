@@ -18,7 +18,7 @@ function searchRange(nums: number[], target: number): number[] {
     const mid = (l + r) >> 1; // 靠左，取到左
 
     if (nums[mid] < target) {
-      l = mid + 1;
+      l = mid + 1; // l 取结果，且逼近到 =，值靠左，求得左边界
     } else {
       r = mid;
     }

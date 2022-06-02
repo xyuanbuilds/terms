@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>实现一个五分制打分控件</h3>
+
+    <h4>请把组件写在 #answer-area 内</h4>
+    <section id="answer-area">
+      <div class="container">
+        <div class="test"></div>
+        <div class="test"></div>
+        <div class="test"></div>
+        <div class="test"></div>
+        <div class="test"></div>
+      </div>
+    </section>
+
+    <style>
+      .container {
+        display: flex;
+      }
+      .test {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background: black;
+      }
+    </style>
+
+    <script>
+      window.onload = () => {
+        const list = Array.from(document.querySelectorAll(".test"));
+        list.forEach((el) => {
+          el.addEventListener("click", (e) => {
+            const index = list.indexOf(e.target);
+
+            list.forEach((el, cur) => {
+              if (cur <= index) {
+                el.style.backgroundColor = "yellow";
+              } else {
+                el.style.backgroundColor = "black";
+              }
+            });
+          });
+        });
+      };
+    </script>
+
+    <!-- 以下为题干 -->
+
+    <pre>
+要求：使用原生HTML, CSS, JS（ES6）
+注：你可以在做题时可以查 Baidu、Google、Stack Overflow。
+</pre
+    >
+
+    <pre>
+- 控件显示为5个☆（或是别的简单图形, ★/☆ 符号等），水平铺开
+- 鼠标点击第3个☆，前3个方块变为★，意味着用户打了3星；
+- 再点击第2个方块，就变成了打2星；
+- 在5个方块最右边显示打分的数字, 比如打2星就显示数字2.
+</pre
+    >
+  </body>
+</html>

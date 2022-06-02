@@ -23,7 +23,11 @@ Promise.resolve()
 
 async function async1() {
   console.log("async1 start");
-  await async2(); // ! await 会产生一个promise微任务，但如果执行内容为同步，依旧同步执行
+  // await 等待的不是一个 Promise Like 对象的时候，相当于 await Promise.resolve(...)。
+  await async2(); // ! 由于无论是否 promise，await 都会产生一个promise，并等待其处理结果
+  // ! 所以 await 执行的函数内容为同步，依旧同步执行
+  // ! 但无论 await 右侧返回是否 Promise，await 下方的执行都会被推入微任务队列
+  // * 但await的后续内容会作为微任务进行
   console.log("async1 end");
 }
 async function async2() {
