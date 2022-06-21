@@ -54,3 +54,21 @@ function lengthOfLIS(nums: number[]): number {
 // 解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。
 // 10 1
 // 10，9 1,
+function lengthOfLIS(nums: number[]): number {
+  const dp = [];
+  dp[0] = 1;
+
+  // * 右侧从 1 开始
+  for (let r = 1; r < nums.length; r += 1) {
+    dp[r] = 1;
+    // * 左侧从 0 开始
+    for (let l = 0; l < r; l += 1) {
+      // * 存在一个右侧 > 左侧，才存在递增
+      if (nums[l] < nums[r]) {
+        // * 当前 r 位置已有的最长 或 l 位置最长 加上当次增加的
+        dp[r] = Math.max(dp[r], dp[l] + 1);
+      }
+    }
+  }
+  return Math.max(...dp);
+}

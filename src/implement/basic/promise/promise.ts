@@ -14,13 +14,17 @@
  * * 如果有一个是 pending 的 Promise，则返回一个状态是 pending 的新实例；
  *
  * * Promise.any：任意一个 fulfilled 返回 fulfilled，全 rejected 则返回 rejected，其他都是 pending
+ * * 空数组或者所有 Promise 都是 rejected，则返回状态是 rejected 的新 Promise，且值为 AggregateError 的错误；
+ * * 只要有一个是 fulfilled 状态的，则返回第一个是 fulfilled 的新实例；
+ * * 其他情况都会返回一个 pending 的新实例；
  *
  * ! Promise.resolve(something)，Promise.resolve 会将 Promise实例原样返回，
  * ! 非 Promise实例 则会用 Promise 包裹，返回一个fulfilled 的 promise
  *
- * * 空数组或者所有 Promise 都是 rejected，则返回状态是 rejected 的新 Promsie，且值为 AggregateError 的错误；
- * * 只要有一个是 fulfilled 状态的，则返回第一个是 fulfilled 的新实例；
- * * 其他情况都会返回一个 pending 的新实例；
+ * ! Promise then存在值穿透，也就是 then 如果传入一个非函数参数，该then相当于不存在
+ * 值穿透指的是，链式调用的参数不是函数时，会发生值穿透，就传入的非函数值忽略，传入的是之前的函数参数。
+ * ! Promise.resolve(1).then(function() { return 2 }).then(Promise.resolve(1)).then(console.log)
+ * ! 此时会返回 2，因为 Promise.resolve(1)不是函数，直接穿透跳过
  */
 
 /**a
@@ -190,13 +194,14 @@ function isPromise(obj) {
 
 function myPromiseAll(arr) {
   let res = [];
-  let count = 0; // ! 需要进行计数
+  let count = 0; // ! 需要进行计数，计数达到了才能resolve
   let containPromise = false;
 
   return new Promise((resolve, reject) => {
     for (let i = 0; i < arr.length; i++) {
       if (isPromise(arr[i])) {
         containPromise = true;
+
         arr[i]
           .then((data) => {
             count += 1;
@@ -308,3 +313,19 @@ readFileAsync("test.js").then(
     console.log(err);
   }
 );
+
+function pAllT(arr) {
+  let count = 0;
+  let res = [];
+  return new Promise((r, j) => {
+    // * 固定结果位置，不可用 for of
+
+    for (let i = 0; i < arr.length; i += 1) {
+      p.then((curRes) => {
+        count += 1;
+        res[i] = curRes;
+        if (count === arr.length) r(res);
+      }, j);
+    }
+  });
+}

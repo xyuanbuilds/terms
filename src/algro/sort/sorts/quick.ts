@@ -101,3 +101,26 @@ function partition1(arr: any[], l: number, r: number): null | number {
 quick3(a, 0, a.length - 1);
 
 console.log(a);
+
+function quick(arr, l, r) {
+  const pivot = partition(arr, l, r);
+  if (pivot === null) return;
+  quick(arr, l, pivot - 1);
+  quick(arr, pivot + 1, r);
+}
+
+function partition(arr, l, r) {
+  if (l >= r) return null;
+  const p = arr[l];
+
+  let should = l;
+  for (let i = l + 1; i <= r; i += 1) {
+    const cur = arr[i];
+    if (cur < p) {
+      should += 1;
+      [arr[should], arr[i]] = [arr[i], arr[should]];
+    }
+  }
+  [arr[should], arr[l]] = [arr[l], arr[should]];
+  return should;
+}

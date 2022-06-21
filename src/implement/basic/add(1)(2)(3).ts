@@ -28,13 +28,26 @@ console.log(add(1)(2)(3));
 console.log(add(1, 2)(3));
 console.log(add(1)(2, 3));
 // 复习
-// function curry1(fn, ...args) {
-//   // * 函数的参数个数可以直接通过函数数的.length属性来访问
-//   // * 需要的参数不够，说明还需要再接受参数
-//   // * 接受的参数够了则直接执行
-//   if (fn.length <= args.length) {
-//     return fn(...args);
-//   } else {
-//     return (...extraArgs) => curry1(fn, ...args, ...extraArgs);
-//   }
-// }
+function curry2(fn) {
+  const need = fn.length;
+
+  function tmp(...args) {
+    // * 达到参数数目执行
+    if (args.length >= need) {
+      return fn(...args);
+    } else {
+      return (...extra) => {
+        // * 未达到继续获取参数
+        return tmp(...args, ...extra);
+      };
+    }
+  }
+
+  return tmp;
+}
+
+const add2 = curry2(add1);
+console.log(add2(1, 2, 3));
+console.log(add2(1)(2)(3));
+console.log(add2(1, 2)(3));
+console.log(add2(1)(2, 3));

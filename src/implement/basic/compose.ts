@@ -15,11 +15,7 @@ export default function compose(...funcs: Function[]) {
     return funcs[0];
   }
 
-  return funcs.reduce(
-    (pre, cur) =>
-      (...args: any) =>
-        pre(cur(...args))
-  );
+  return (...args: any) => funcs.reduce((pre, cur) => pre(cur(...args)));
 }
 
 // 复习
@@ -45,3 +41,7 @@ export default function compose(...funcs: Function[]) {
 // }
 
 // fns.reduce((pre, cur) => (...args) => pre(cur(...args)))
+
+function compose1(...fns) {
+  return (...args) => fns.reduce((pre, cur) => pre(cur(...args)));
+}

@@ -17,6 +17,8 @@
 function trap(height: number[]) {
   const N = height.length;
   let all = 0;
+
+  // * 头尾
   let l = 0;
   let r = N - 1;
 
@@ -33,9 +35,11 @@ function trap(height: number[]) {
       // * 确认当前左边能兜住，先算左边
       // * lMax 要么是当前，要么是左侧某个大的
       all += lMax - height[l];
+      // * 左边算完一个
       l += 1;
     } else {
       all += rMax - height[r];
+      // * 右边算完一个
       r -= 1;
     }
   }

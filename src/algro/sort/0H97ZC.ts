@@ -35,8 +35,31 @@ const relativeSortArray1 = (arr1, arr2) => {
   }
 
   right.sort((a, b) => a - b);
+
   return [...left, ...right];
 };
+
+function relativeSortArray2(arr1, arr2) {
+  // 计数排序
+  let count = [];
+  for (let num of arr1) {
+    count[num] ? count[num]++ : (count[num] = 1);
+  }
+  // 对arr2中已出现的数据进行排序
+  let idx = 0;
+  for (let num of arr2) {
+    while (count[num]--) {
+      arr1[idx++] = num;
+    }
+  }
+  // 对剩余数据进行排序： 由于数据的值存在数组下标中，因此没用的数据其实已经排好序了
+  for (let i = 0; i < count.length; i++) {
+    while (count[i]-- > 0) {
+      arr1[idx++] = i;
+    }
+  }
+  return arr1;
+}
 
 function quick(nums: number[], left: number, right: number) {
   const pIndex = partition(nums, left, right); // 从左往右遍历，排列 left 位置数到它该放置的位置

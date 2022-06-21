@@ -30,21 +30,20 @@
 //   </span>
 // </div>
 
-// 真正的渲染函数
+// vDOM渲染 或 json转html
 function _render(
-  vNode: Record<"tag" | "attrs" | "children", any> | number | string
+  vNode: string | number | { tag: "string"; attrs: any[]; children: any[] }
 ) {
-  // 如果是数字类型转化为字符串
-  if (typeof vNode === "number") {
-    vNode = String(vNode);
+  // // 如果是数字类型转化为字符串
+  // if (typeof vNode === "number") {
+  //   vNode = String(vNode);
+  // }
+  // * 字符串类型、数字类型直接就是文本节点
+  if (typeof vNode === "number" || typeof vNode === "string") {
+    return document.createTextNode(`${vNode}`);
   }
-  // 字符串类型直接就是文本节点
-  if (typeof vNode === "string") {
-    return document.createTextNode(vNode);
-  }
-  // 普通DOM
+  // * 对象构建DOM
   const dom = document.createElement(vNode.tag);
-
   if (vNode.attrs) {
     // 遍历属性
     Object.keys(vNode.attrs).forEach((key) => {
@@ -53,8 +52,7 @@ function _render(
     });
   }
 
-  // *  子数组递归操作 这一步是关键
+  // * 子数组递归操作
   vNode.children.forEach((child) => dom.appendChild(_render(child)));
-
   return dom;
 }

@@ -1,3 +1,4 @@
+// * 请求发送一次，p 记录正在发送中的请求（返回promise的函数），finally 中将 p 记录转为 null
 function firstPromise(fn: (...args: any[]) => Promise<any>) {
   let p: Promise<any> | null = null;
   return function (...args: any[]) {

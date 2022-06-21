@@ -79,3 +79,22 @@ function isSymmetric(root: TreeNode | null): boolean {
 // };
 
 // const res = isSymmetric(test1);
+function isSymmetric1(root: TreeNode | null): boolean {
+  if (!root) return true;
+
+  function dfs(node, tmp, dir) {
+    if (!node) return `null${tmp}`;
+    const l = dfs(node.left, tmp + node.val, dir);
+    const r = dfs(node.right, tmp + node.val, dir);
+    if (dir === "l") {
+      return `${l}${tmp}${r}`;
+    } else {
+      return `${r}${tmp}${l}`;
+    }
+  }
+
+  const l = dfs(root.left, "", "l");
+  const r = dfs(root.right, "", "r");
+
+  return l === r;
+}

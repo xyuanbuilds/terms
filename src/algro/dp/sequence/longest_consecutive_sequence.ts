@@ -134,3 +134,27 @@ function longestConsecutiveO(nums: number[]): number {
 
   return max;
 }
+
+function longestConsecutiveZ(nums: number[]): number {
+  if (nums.length === 0) return 0;
+  nums.sort((a, b) => a - b);
+
+  let pre = 1;
+  let preN = nums[0];
+  let max = 1;
+
+  for (let i = 1; i < nums.length; i += 1) {
+    const cur = nums[i];
+    if (preN === cur) {
+      continue;
+    } else if (preN + 1 === cur) {
+      pre = pre + 1;
+      max = Math.max(max, pre);
+    } else {
+      pre = 1;
+    }
+    preN = cur;
+  }
+
+  return max;
+}

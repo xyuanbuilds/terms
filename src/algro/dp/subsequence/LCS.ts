@@ -28,8 +28,8 @@ function longestCommonSubsequence(text1: string, text2: string): number {
   // * i= 0，j = 0 表示 两字符串都为 ''，所以从 1 开始遍历，i - 1 取字符
   for (let i = 1; i <= N; i += 1) {
     for (let j = 1; j <= M; j += 1) {
-      const has = text1[i - 1] === text2[j - 1];
       // * 相等 及必然属于公共子串
+      const has = text1[i - 1] === text2[j - 1];
       if (has) {
         // *  当前 i、j 相等，必定是一个公共串中的一位，取i、j都不取当前位的值 + 1
         dp[i][j] = dp[i - 1][j - 1] + 1;

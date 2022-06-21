@@ -1,8 +1,9 @@
 /**
  * 148 排序链表
+ * 剑指 Offer II 077. 链表排序
  * [*]
  *
- * 归并排序
+ * * 归并排序
  *  （树形演化）可递归
  *    先拆分，q && q.next.next 获得中心点，l = head; r = s.next; 最终拆分为单元素的 l 和 r
  *    拆分后合并，在递归的回溯位置进行合并，从单元素最终合并为整链；
@@ -13,7 +14,7 @@
  */
 function sortList(head: ListNode | null): ListNode | null {
   if (!head || head.next === null) return head;
-  // 使用快慢指针找到中间节点
+  // * 1. 使用快慢指针找到中间节点
   let slow: ListNode | null = head;
   let fast: ListNode | null = head.next;
 
@@ -21,7 +22,7 @@ function sortList(head: ListNode | null): ListNode | null {
     slow = slow!.next;
     fast = fast.next.next;
   }
-  // 将链表分成两半并返回后半部分链表的头节点
+  // * 将链表分成两半并返回后半部分链表的头节点
   let newList = slow!.next;
   slow!.next = null;
 
@@ -128,4 +129,49 @@ function sortList1(head: ListNode | null): ListNode | null {
   }
 
   return dummyHead.next;
+}
+
+function sortListAA(head: ListNode | null): ListNode | null {
+  if (!head || head.next === null) return head; //! null 或 单节点 直接跳出
+  let slow = head!;
+  // let fast = head!;
+  let fast = head!.next; // !注意
+
+  while (fast && fast.next) {
+    slow = slow!.next;
+    fast = fast.next!.next;
+  }
+
+  let another = slow!.next;
+  slow!.next = null;
+
+  const left = sortListAA(head);
+  const right = sortListAA(another);
+
+  const dummy = { val: -1, next: null };
+  return mergeList(dummy, left, right).next;
+}
+
+function mergeList(
+  head: ListNode,
+  left: ListNode | null,
+  right: ListNode | null
+) {
+  let cur = head;
+  let l: ListNode | null = left;
+  let r: ListNode | null = right;
+  while (l !== null && r !== null) {
+    if (l.val < r.val) {
+      cur.next = l;
+      l = l.next;
+    } else {
+      cur.next = r;
+      r = r.next;
+    }
+    cur = cur.next;
+  }
+
+  cur.next = l === null ? r : l;
+
+  return head;
 }

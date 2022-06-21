@@ -40,6 +40,9 @@
 
           console.log(id);
 
+          // 另外也可从外部拖拽文件进入 drop区域
+          // 这样获取 e.dataTransfer.files[0];
+
           const draggableElement = document.getElementById(id);
           const dropzone = event.target;
 

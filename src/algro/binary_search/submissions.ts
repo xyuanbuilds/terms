@@ -15,6 +15,7 @@ function search(nums: number[], target: number): number {
 
     if (nums[mid] === target) return mid;
 
+    // * 当前值小于，计算目标，左边界 + 1
     if (nums[mid] < target) {
       l = mid + 1; // * 如果 l = mid，会存在死循环
     } else if (nums[mid] > target) {
