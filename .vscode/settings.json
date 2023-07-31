@@ -1,8 +1,4 @@
 {
-  "eslint.alwaysShowStatus": true,
-  "eslint.validate": ["typescript"],
-  "eslint.debug": true,
-  "eslint.packageManager": "yarn",
   "emmet.triggerExpansionOnTab": true,
   "emmet.showAbbreviationSuggestions": false,
   "emmet.showExpandedAbbreviation": "always",
@@ -65,9 +61,5 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": [
-    "deque",
-    "esno",
-    "strs"
-  ],
+  "cSpell.words": ["deque", "esno", "strs"]
 }
