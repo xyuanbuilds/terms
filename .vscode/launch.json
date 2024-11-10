@@ -7,17 +7,17 @@
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "protocol": "inspector",
-      "env": { 
-        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
       },
-      "args": ["node_modules/esno/esmo.mjs", "./${relativeFile}"],
+      "args": ["node_modules/esno/esno.js", "./${relativeFile}"],
       // "runtimeArgs": [".../npx","${workspaceFolder}/node_modules/.bin/esmo"],
       // "runtimeArgs": ["${workspaceFolder}/node_modules/esno/esmo.mjs"],
       // "args": ["./${relativeFile}"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "stopOnEntry": false,
-      "sourceMaps": true,
+      "sourceMaps": true
     }
   ]
 }
