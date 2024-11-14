@@ -16,4 +16,6 @@ const arrayDepth = function (p: any[]) {
   return help(p, 1);
 };
 
-console.log(arrayDepth([[1], [[1, 2]], [[[[1, 2, 3]]]]]));
+const res11 = arrayDepth([[1], [[1, 2]], [[[[1, 2, 3]]]]]);
+
+console.log(res11);

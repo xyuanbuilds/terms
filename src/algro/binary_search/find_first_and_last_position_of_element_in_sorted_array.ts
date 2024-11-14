@@ -98,4 +98,57 @@ function searchRange1(nums: number[], target: number): number[] {
     return [head + 1, tail - 1];
   }
 }
-searchRange1([1, 1, 3, 4, 5, 5, 5, 5, 5], 3);
+console.log(searchRange2([1, 1, 3, 4, 5, 5, 5, 5, 5], 3));
+console.log(1);
+
+function searchRange2(nums: number[], target: number): number[] {
+  let left = searchLeftRange(nums, target);
+  let right = searchRightRange(nums, target);
+  return [left, right];
+}
+
+function searchLeftRange(nums: number[], target: number): number {
+  let left = 0;
+  let right = nums.length;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (nums[mid] === target) {
+      right = mid;
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else if (nums[mid] > target) {
+      right = mid;
+    }
+  }
+
+  // target 大于数组中的最大值，left 一直向右查找，数组下标越界
+  if (left >= nums.length) return -1;
+  // 判断一下 nums[left] 是不是 target（target 位于中间，可能并不存在数组中）
+  return nums[left] == target ? left : -1;
+}
+
+function searchRightRange(nums: number[], target: number): number {
+  let left = 0;
+  let right = nums.length;
+
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (nums[mid] === target) {
+      left = mid + 1; // mid = left - 1
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else if (nums[mid] > target) {
+      right = mid;
+    }
+  }
+
+  const res = left - 1;
+  if (res < 0) return -1;
+
+  // 判断一下 nums[left] 是不是 target（target 位于中间，可能并不存在数组中）
+  // 由于等于 target 的时候，left 又加了 1，所以结果要减掉
+  return nums[res] == target ? res : -1;
+}
