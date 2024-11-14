@@ -20,7 +20,6 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "ignoreDeprecations": "5.0",
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "removeComments": false,
