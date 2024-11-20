@@ -9,13 +9,19 @@
  * @param fn 异步函数（返回Promise对象的函数）
  * @returns
  */
-async function asyncPool(limit: number, arr, fn) {
+async function asyncPool(
+  limit: number,
+  arr: any[],
+  fn: (item: any) => Promise<any>
+) {
   const res = [];
 
   const executing: Promise<any>[] = [];
 
   for (const item of arr) {
-    const p = Promise.resolve().then(() => fn(item));
+    const tmp = fn(item);
+    const p =
+      tmp instanceof Promise ? tmp : Promise.resolve().then(() => fn(item));
 
     res.push(p);
 
@@ -46,28 +52,31 @@ async function asyncPool1(limit: number, arr, fn) {
   // * 结果保存，用于 Promise.all 处理
   const res = [];
 
-  const executing: Promise<any>[] = [];
+  const waitingCallback: Promise<any>[] = [];
 
   for (let param of arr) {
-    const will = Promise.resolve().then(() => fn(param));
+    // const will = Promise.resolve().then(() => fn(param));
+    const tmp = fn(param);
+    const will =
+      tmp instanceof Promise ? tmp : Promise.resolve().then(() => tmp);
 
     res.push(will); // * 执行完后直接放入结果数组
 
     // * will .then 返回一个新的 promise，然后推入 executing
     const cb = will.then(() => {
-      // * will 创建的新 promise 会在结果完成时在 executing 去除，空出一个等待位置
-      executing.splice(executing.indexOf(cb), 1);
-      // executing.splice(executing.findIndex(i=> i === will), 1);
+      // ! .then 用于设置一个回调
+      // ! 在结果完成时在 executing 去除，空出一个等待位置
+      waitingCallback.splice(waitingCallback.indexOf(cb), 1);
     });
 
-    executing.push(cb);
+    waitingCallback.push(cb);
 
-    console.log("will", res.length, executing.length);
+    console.log("will", res.length, waitingCallback.length);
 
-    if (executing.length >= limit) {
+    if (waitingCallback.length >= limit) {
       console.log("executing");
       // * 执行数组达到上限，暂停下来执行出结果为止
-      await Promise.race(executing);
+      await Promise.race(waitingCallback);
     }
   }
 
@@ -77,10 +86,47 @@ async function asyncPool1(limit: number, arr, fn) {
 const delayTest = (res: any) => {
   return new Promise((r) => {
     setTimeout(() => {
+      console.log("delayTest", res);
       r(res);
     }, 1000);
   });
 };
 
-asyncPool1(3, [1, 2, 3, 4, 5, 6, 7, 8], delayTest).then((r) => console.log(r));
+const asyncPool2 = async (limit: number, arr: any[], fn: any) => {
+  const pool: any[] = [];
+  const res: any[] = [];
+
+  for (const item of arr) {
+    const tmp = fn(item);
+    const p = tmp instanceof Promise ? tmp : Promise.resolve().then(() => tmp);
+
+    res.push(p);
+    const len = pool.length;
+    // pool.push(
+    //   p.then(() => {
+    //     pool.splice(len, 1);
+    //   })
+    // );
+    const cb = p.then(() => {
+      // ! .then 用于设置一个回调
+      // ! 在结果完成时在 executing 去除，空出一个等待位置
+      pool.splice(pool.indexOf(cb), 1);
+    });
+    pool.push(cb);
+
+    console.log("pool push", pool.length, res.length);
+
+    if (pool.length >= limit) {
+      console.log("hold executing");
+      await Promise.race(pool);
+    }
+  }
+
+  await Promise.all(res);
+  return res;
+};
+export {};
+const finalRes = await asyncPool2(3, [1, 2, 3, 4, 5, 6, 7, 8], delayTest);
+
+console.log(finalRes);
 // await Promise.race(executing); // executing 中任意一个进入

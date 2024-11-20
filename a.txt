@@ -1,0 +1,18 @@
+@startuml
+start
+:开始播放；
+:播放中；
+:检查是否暂停；
+if (是否暂停？) then (是)
+  :暂停播放；
+else (否)
+  :继续播放；
+endif
+:检查是否停止；
+if (是否停止？) then (是)
+  :停止播放；
+else (否)
+  :继续播放；
+endif
+stop
+@enduml

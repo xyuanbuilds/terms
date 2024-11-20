@@ -1,4 +1,5 @@
 // 作者：pany
+// 大数想家
 // 链接：https://zhuanlan.zhihu.com/p/72179476
 
 const a = "9007199254740991";
